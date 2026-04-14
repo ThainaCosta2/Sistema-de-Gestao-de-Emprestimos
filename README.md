@@ -57,8 +57,7 @@ O sistema prioriza a proteção dos dados dos usuários:
 │   └── static/          # CSS, JS e Imagens
 ├── app.py               # Ponto de entrada da aplicação
 ├── config.py            # Configurações do banco de dados e chaves
-├── mapeamento_roles.py  # Definição dos níveis de acesso
-└── requirements.txt     # Dependências do projeto
+└── mapeamento_roles.py  # Definição dos níveis de acesso
 ```
 
 ### � Conclusão
