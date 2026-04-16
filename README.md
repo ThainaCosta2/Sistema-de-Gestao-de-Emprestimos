@@ -6,6 +6,7 @@ O sistema agora conta com um **Modo Escuro** para melhor conforto visual e uma e
 
 
 
+
 https://github.com/user-attachments/assets/aa0ec797-deeb-4d20-9888-0803a587b1ca
 
 
