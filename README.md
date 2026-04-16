@@ -4,6 +4,15 @@
 Este repositório abriga um projeto criado para a gestão administrativa e financeira de carteiras de empréstimos. O sistema oferece interfaces distintas para **Gerentes** (foco em tomada de decisão e cobrança) e **Clientes** (foco em transparência e acompanhamento de dívidas), garantindo um controle eficiente de fluxo de caixa e inadimplência.
 O sistema agora conta com um **Modo Escuro** para melhor conforto visual e uma experiência de usuário aprimorada, além de **gráficos dinâmicos** que oferecem clareza sobre o progresso dos empréstimos e histórico de pagamentos.
 
+
+
+https://github.com/user-attachments/assets/aa0ec797-deeb-4d20-9888-0803a587b1ca
+
+
+
+https://github.com/user-attachments/assets/f11bba65-fd48-4abe-b3be-0d27728a22ab
+
+
 ### 🎯 Objetivos do Projeto
 O objetivo central deste projeto foi desenvolver uma plataforma funcional que automatiza o cálculo de juros e multas por atraso, fornece indicadores visuais de rentabilidade através de gráficos e facilita a comunicação direta com o cliente via integração com WhatsApp, buscando otimizar o processo de recuperação de crédito.
 garantindo uma **experiência de usuário intuitiva e visualmente agradável** em ambos os modos de exibição (claro e escuro).
