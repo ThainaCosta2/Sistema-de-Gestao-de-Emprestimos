@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/f11bba65-fd48-4abe-b3be-0d27728a22ab
 
 
 ### 🎯 Objetivos do Projeto
-O objetivo central deste projeto foi desenvolver uma plataforma funcional que automatiza o cálculo de juros e multas por atraso, fornece indicadores visuais de rentabilidade através de gráficos e facilita a comunicação direta com o cliente via integração com WhatsApp, buscando otimizar o processo de recuperação de crédito.
+O objetivo central deste projeto foi desenvolver uma plataforma funcional que automatiza o cálculo de juros e multas por atraso, fornece indicadores visuais de rentabilidade através de gráficos e facilita a comunicação direta com o cliente via integração com WhatsApp, buscando otimizar o processo de recuperação de crédito
 garantindo uma **experiência de usuário intuitiva e visualmente agradável** em ambos os modos de exibição (claro e escuro).
 
 ### 🗄️ Bases de Dados
