@@ -91,7 +91,7 @@
       <div class="card card-round">
         <div class="card-header card-header-gerente">
           <div class="card-head-row card-tools-still-right">
-            <div class="card-title">Ações Urgentes - Top 5 Atrasos</div>
+            <div class="card-title">Pendências Críticas de Cobrança</div>
           </div>
         </div>
         <div class="card-body p-0">
@@ -106,17 +106,25 @@
                 </tr>
               </thead>
               <tbody>
+                {% for cliente in dados_dashboard.pendencias_criticas %}
                 <tr>
-                  <th scope="row">Carlos Pereira</th>
-                  <td class="text-end text-danger fw-bold">60 dias</td>
-                  <td class="text-end">R$ 20.000,00</td>
+                  <th scope="row">{{ cliente.nome }}</th>
+                  <td class="text-end text-danger fw-bold">{{ cliente.dias_atraso }} dias</td>
+                  <td class="text-end">R$ {{ cliente.valor_vencido }}</td>
                   <td class="text-end">
-                    <a href="https://wa.me/5511999999999?text=Olá Carlos, notamos que a sua parcela está em atraso. Como podemos ajudar?"
+                    <a href="https://wa.me/5511999999999?text=Olá {{ cliente.nome }}, notamos que a sua parcela está em atraso. Como podemos ajudar?"
                       target="_blank" class="btn btn-sm btn-success">
                       <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                   </td>
                 </tr>
+                {% else %}
+                <tr>
+                  <td colspan="4" class="text-center py-4 text-muted">
+                    <i class="fas fa-check-circle me-1 text-success"></i> Nenhuma pendência crítica no momento.
+                  </td>
+                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -151,15 +159,15 @@
           <div class="chart-container" style="min-height: 200px"><canvas id="doughnutChart"></canvas></div>
           <div class="mt-4">
             <div class="d-flex justify-content-between mb-1"><span class="indicador-label">Índice de
-                Reinvestimento</span><span class="fw-bold text-reinvestimento">85%</span></div>
+                Reinvestimento</span><span class="fw-bold text-reinvestimento">{{ dados_dashboard.resumo.indice_reinvestimento }}%</span></div>
             <div class="progress mb-3" style="height: 6px;">
-              <div class="progress-bar bg-reinvestimento" role="progressbar" style="width: 85%" aria-valuenow="85"
+              <div class="progress-bar bg-reinvestimento" role="progressbar" style="--prog: {{ dados_dashboard.resumo.indice_reinvestimento }}%; width: var(--prog);" aria-valuenow="{{ dados_dashboard.resumo.indice_reinvestimento }}"
                 aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="d-flex justify-content-between mb-1"><span class="indicador-label">Capital em Risco
-                (VaR)</span><span class="fw-bold text-danger">R$ 20.000,00</span></div>
+                (VaR)</span><span class="fw-bold text-danger">{{ dados_dashboard.resumo.capital_em_risco }}</span></div>
             <div class="progress mb-2" style="height: 6px;">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="10"
+              <div class="progress-bar bg-danger" role="progressbar" style="--prog: {{ dados_dashboard.resumo.percentual_risco }}%; width: var(--prog);" aria-valuenow="{{ dados_dashboard.resumo.percentual_risco }}"
                 aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
