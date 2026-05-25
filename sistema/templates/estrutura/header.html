@@ -23,7 +23,7 @@
   <!-- Navbar Header -->
   <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
     <div class="container-fluid">
-      <form class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
+      <form class="navbar-left navbar-form nav-search p-0 d-none d-lg-flex"
         action="{{ url_for('relatorios') }}" method="GET">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -32,11 +32,24 @@
             </button>
           </div>
           <input type="text" id="campoBuscaDesktop" name="q" placeholder="Pesquisar..." class="form-control" autocomplete="off" oninput="minhaBusca('campoBuscaDesktop', 'listaDesktop')" />
-          <div id="listaDesktop" class="search-results-container shadow"></div>
+          <div id="listaDesktop" class="search-results-container shadow" style="display: none;"></div>
         </div>
       </form>
 
       <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+
+        <!-- Widget de Status do Sistema (Data + Relógio) -->
+        <li class="nav-item me-3 d-flex align-items-center">
+          <div class="system-status-widget">
+            <span class="status-item-date">
+              <i class="fas fa-calendar-alt me-1 text-warning"></i> Data: 27/03/2026
+            </span>
+            <span class="status-divisor"></span>
+            <span class="status-item-time">
+              <i class="fas fa-clock me-1 text-info"></i> <span id="relogio-digital">00:00:00</span>
+            </span>
+          </div>
+        </li>
 
         <!-- Botão de Alternar Tema (Modo Escuro/Claro) -->
         <li class="nav-item me-2">
@@ -56,7 +69,7 @@
             <form class="navbar-left navbar-form nav-search" action="{{ url_for('relatorios') }}" method="GET">
               <div class="input-group">
                 <input type="text" id="campoBuscaMobile" name="q" placeholder="Pesquisar..." class="form-control" autocomplete="off" oninput="minhaBusca('campoBuscaMobile', 'listaMobile')" />
-                <div id="listaMobile" class="search-results-container shadow"></div>
+                <div id="listaMobile" class="search-results-container shadow" style="display: none;"></div>
               </div>
             </form>
           </ul>
@@ -84,43 +97,40 @@
 
                   <!-- VERIFICAÇÃO: Se for Gerente, mostra as mensagens simuladas -->
                   {% if session['perfil'] == 'gerente' %}
-                  <a data-bs-toggle="collapse" href="#chat-joao-rocha" role="button" aria-expanded="false"
-                    aria-controls="chat-joao-rocha" style="text-decoration: none; cursor: pointer;">
+                  <a class="manager-msg-item" data-bs-toggle="collapse" href="#chat-joao-rocha" role="button" aria-expanded="false"
+                    aria-controls="chat-joao-rocha">
                     <div class="notif-img">
-                      <img src="{{ url_for('static', filename='images/JoaoRocha.jpg' ) }}" alt="Img Profile" />
+                      <img src="{{ url_for('static', filename='images/JoaoRocha.jpg' ) }}" alt="Img Profile" class="rounded-circle" />
+                      <span class="unread-dot"></span>
                     </div>
                     <div class="notif-content">
-                      <span class="subject">João Rocha - Cliente</span>
+                      <span class="subject">João Rocha</span>
                       <span class="block">Olá tudo bem?</span>
                       <span class="time">5 minutos atrás</span>
                     </div>
                   </a>
                   <!-- Janela de Chat (Collapse) -->
-                  <div class="collapse p-3 bg-light border-bottom" id="chat-joao-rocha">
-                    <div class="card-body-chat">
-                      <div class="input-group">
-                        <input type="text" placeholder="Responder para João..." class="form-control form-control-sm">
-                        <!-- Ao clicar, exibe a notificação 'Mensagem Enviada' e fecha a janelinha de resposta -->
-                        <button class="btn btn-primary btn-sm"
-                          onclick="notificarSucesso('Mensagem Enviada', 'Sua resposta foi enviada com sucesso.');"
-                          data-bs-toggle="collapse" data-bs-target="#chat-joao-rocha">
-                          <i class="fa fa-paper-plane"></i>
-                        </button>
-                      </div>
+                  <div class="collapse manager-reply-box border-bottom" id="chat-joao-rocha">
+                    <div class="input-group shadow-sm">
+                      <input type="text" placeholder="Responder para João..." class="form-control form-control-sm">
+                      <!-- Ao clicar, exibe a notificação 'Mensagem Enviada' e fecha a janelinha de resposta -->
+                      <button class="btn btn-primary btn-sm"
+                        onclick="notificarSucesso('Mensagem Enviada', 'Sua resposta foi enviada com sucesso.');"
+                        data-bs-toggle="collapse" data-bs-target="#chat-joao-rocha">
+                        <i class="fa fa-paper-plane"></i>
+                      </button>
                     </div>
                   </div>
 
                   <!-- SE NÃO FOR GERENTE (ou seja, é Cliente), mostra aviso vazio -->
                   {% else %}
-                  <div style="padding: 20px; text-align: center; color: gray;">
-                    <i class="fa fa-check-circle" style="font-size: 20px; margin-bottom: 10px;"></i>
-                    <br>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal"
-                      style="color: inherit; text-decoration: none; font-weight: 600;">
-                      Não há novas mensagens.
+                  <div class="empty-msg-container">
+                    <i class="fas fa-comment-dots empty-msg-icon"></i>
+                    <span class="empty-msg-text">Tudo em dia por aqui!</span>
+                    <p class="text-muted small mb-0">Você não tem novas mensagens no momento.</p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal" class="empty-msg-link">
+                      <i class="fas fa-paper-plane me-1"></i> Falar com o Gerente
                     </a>
-                    <div style="font-size: 12px; margin-top: 5px;" class="text-muted">Clique para falar com o gerente
-                    </div>
                   </div>
                   {% endif %}
 
@@ -164,7 +174,7 @@
                   <!-- Se for Gerente, mostra a notificação de pagamento -->
                   {% if session['perfil'] == 'gerente' %}
                   <a href="#">
-                    <div class="notif-icon notif-primary">
+                    <div class="notif-icon notif-success">
                       <i class="fa fa-money-bill-wave"></i>
                     </div>
                     <div class="notif-content">
@@ -174,10 +184,10 @@
                   </a>
                   {% else %}
                   <!-- Se for Cliente, mostra vazio -->
-                  <div style="padding: 20px; text-align: center; color: gray;">
-                    <i class="fa fa-bell-slash" style="font-size: 20px; margin-bottom: 10px;"></i>
+                  <div style="padding: 25px; text-align: center;">
+                    <i class="fa fa-bell-slash" style="font-size: 24px; margin-bottom: 10px; color: #A096D5;"></i>
                     <br>
-                    Nenhuma notificação pendente.
+                    <span style="font-weight: 600; color: #515EA6;">Nenhuma notificação pendente.</span>
                   </div>
                   {% endif %}
 
@@ -243,10 +253,10 @@
 
 <!-- Modal de Todas as Mensagens -->
 <div class="modal fade" id="allMessagesModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Mensagens Anteriores</h5>
+      <div class="modal-header bg-theme-primary text-white">
+        <h5 class="modal-title"><i class="fas fa-history me-2"></i>Histórico de Mensagens</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -437,28 +447,36 @@
 
 <!-- Modal Enviar Mensagem ao Gerente -->
 <div class="modal fade" id="sendMessageModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Nova Mensagem</h5>
+        <h5 class="modal-title"><i class="fas fa-paper-plane me-2"></i>Falar com o Gerente</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label class="col-form-label">Para:</label>
-            <input type="text" class="form-control" value="Ricardo Dantas (Gerente)" disabled>
+            <label class="form-label">Destinatário</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                <input type="text" class="form-control fw-bold" value="Ricardo Dantas (Gerente)" disabled>
+            </div>
           </div>
           <div class="mb-3">
-            <label for="message-text" class="col-form-label">Sua Mensagem:</label>
-            <textarea class="form-control" id="message-text" rows="4" placeholder="Digite aqui..."></textarea>
+            <label for="message-text" class="form-label">Sua Mensagem</label>
+            <textarea class="form-control" id="message-text" rows="5" placeholder="Escreva aqui sua dúvida ou solicitação..."></textarea>
+          </div>
+          <div class="alert alert-info py-2 mb-0 border-0" style="font-size: 0.85rem; background: rgba(160, 150, 213, 0.1); color: #515EA6;">
+            <i class="fas fa-info-circle me-1"></i> O gerente receberá um alerta e responderá o mais breve possível.
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-          onclick="notificarSucesso('Sucesso', 'Sua mensagem foi enviada ao gerente.');">Enviar</button>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-link text-muted fw-bold" data-bs-dismiss="modal" style="text-decoration: none !important;">Cancelar</button>
+        <button type="button" class="btn btn-primary px-4 btn-round" data-bs-dismiss="modal"
+          onclick="notificarSucesso('Mensagem Enviada', 'Sua solicitação foi encaminhada com sucesso!');">
+          <i class="fas fa-share me-1"></i> Enviar Mensagem
+        </button>
       </div>
     </div>
   </div>
@@ -466,10 +484,10 @@
 
 <!-- Modal de Todas as Notificações -->
 <div class="modal fade" id="allNotificationsModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Notificações Anteriores</h5>
+        <h5 class="modal-title"><i class="fas fa-bell me-2"></i>Notificações Anteriores</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
