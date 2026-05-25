@@ -67,32 +67,6 @@ function alternarTema() {
         localStorage.setItem('tema-preferido', 'claro');
     }
 
-    // Atualiza todos os gráficos para renderizar as novas cores dos eixos (Jan, Fev, R$...)
-    if (typeof Chart !== 'undefined' && Chart.instances) {
-        const novaCorTexto = pegarCorDoCSS('--cor-grafico-texto');
-        const novaCorGrid = pegarCorDoCSS('--cor-grafico-grid');
-
-        Object.values(Chart.instances).forEach(instance => {
-            // Atualiza as cores dos eixos (Ticks) e das linhas de grade (GridLines)
-            if (instance.options.scales) {
-                const scales = instance.options.scales;
-                [scales.xAxes, scales.yAxes].forEach(axes => {
-                    if (axes) {
-                        axes.forEach(axis => {
-                            if (axis.ticks) axis.ticks.fontColor = novaCorTexto;
-                            if (axis.gridLines) axis.gridLines.color = novaCorGrid;
-                            if (axis.gridLines) axis.gridLines.zeroLineColor = novaCorGrid;
-                        });
-                    }
-                });
-            }
-            // Atualiza a legenda interna se existir
-            if (instance.options.legend && instance.options.legend.labels) {
-                instance.options.legend.labels.fontColor = novaCorTexto;
-            }
-            instance.update();
-        });
-    }
 }
 
 // Função para verificar se o usuário já tinha escolhido o modo escuro antes
@@ -109,10 +83,26 @@ function verificarTemaSalvo() {
 // esteja no body antes de qualquer script de gráfico rodar.
 verificarTemaSalvo();
 
+function iniciarRelogio() {
+    function atualizar() {
+        const agora = new Date();
+        const h = String(agora.getHours()).padStart(2, '0');
+        const m = String(agora.getMinutes()).padStart(2, '0');
+        const s = String(agora.getSeconds()).padStart(2, '0');
+        const display = document.getElementById('relogio-digital');
+        if (display) {
+            display.textContent = `${h}:${m}:${s}`;
+        }
+    }
+    setInterval(atualizar, 1000); // Faz o relógio atualizar a cada 1 segundo
+    atualizar(); // Chama uma vez na hora para não começar em 00:00:00
+}
+
 // Inicializador de Funções
 function inicializar() {
     mascaraTelefoneCelular();
     mascaraSomenteLetras();
+    iniciarRelogio(); // Ativa o relógio assim que a página carrega
 }
 
 window.addEventListener('load', inicializar);
