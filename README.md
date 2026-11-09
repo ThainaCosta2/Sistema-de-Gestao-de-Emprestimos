@@ -2,7 +2,7 @@
 
 ### 📝 Visão Geral
 Este repositório abriga um projeto criado para a gestão administrativa e financeira de carteiras de empréstimos. O sistema oferece interfaces distintas para **Gerentes** (foco em tomada de decisão e cobrança) e **Clientes** (foco em transparência e acompanhamento de dívidas), garantindo um controle eficiente de fluxo de caixa e inadimplência.
-O sistema agora conta com um **Modo Escuro** para melhor conforto visual e uma experiência de usuário aprimorada, além de **gráficos dinâmicos** que oferecem clareza sobre o progresso dos empréstimos e histórico de pagamentos
+O sistema agora conta com um **Modo Escuro** para melhor conforto visual e uma experiência de usuário aprimorada, além de **gráficos dinâmicos** que oferecem clareza sobre o progresso dos empréstimos e histórico de pagamentos.
 
 
 
